@@ -1,6 +1,7 @@
 package rbt
 
 import (
+	"strconv"
 	"testing"
 )
 
@@ -35,13 +36,11 @@ func TestSearch(t *testing.T) {
 func TestDelete(t *testing.T) {
 	tree := NewTree()
 
-	tree.Insert(1, "1")
-	tree.Insert(3, "3")
-	tree.Insert(4, "4")
-	tree.Insert(6, "6")
-	tree.Insert(5, "5")
-	tree.Insert(2, "2")
-	for i := 1; i <= 6; i++ {
+	for i := 1; i < 1000; i++ {
+		tree.Insert(i, strconv.Itoa(i))
+	}
+
+	for i := 1; i <= 1000; i++ {
 		tree.Delete(i)
 	}
 	if tree.Size() != 0 {
