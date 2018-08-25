@@ -1,2 +1,2 @@
 # rbt
-Red-Black Tree Implementation
+Red-Black Tree Implementation (Based on CLRS)

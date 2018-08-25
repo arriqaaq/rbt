@@ -1,7 +1,6 @@
 package rbt
 
 import (
-	// "errors"
 	"fmt"
 )
 
