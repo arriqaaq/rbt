@@ -2,6 +2,7 @@ package rbt
 
 import (
 	"fmt"
+	"math"
 )
 
 /*
@@ -17,6 +18,17 @@ import (
 4. Every simple path from a node to a descendant leaf contains the same
    number of black nodes.
 */
+
+const (
+	INT_MAX = math.MaxInt64
+)
+
+func abs(i int64) int64 {
+	if i < 0 {
+		return -i
+	}
+	return i
+}
 
 type Color int
 
@@ -38,13 +50,12 @@ type Tree struct {
 // Inorder traversal
 func (t *Tree) Traverse() {
 	fn := func(n *Node) {
-		// fmt.Printf("%+v\n", n)
 		fmt.Println(n.key)
 	}
 	t.root.traverse(fn)
 }
 
-func (t *Tree) Insert(key int, value string) {
+func (t *Tree) Insert(key int64, value string) {
 	x := newNode(key, value)
 	// Normal BST insertion
 	t.insert(x)
@@ -198,7 +209,7 @@ func (t *Tree) replace(a, b *Node) {
 	}
 }
 
-func (t *Tree) Search(key int) *Node {
+func (t *Tree) Search(key int64) *Node {
 	x := t.root
 
 	if x == nil {
@@ -219,7 +230,7 @@ func (t *Tree) Search(key int) *Node {
 	return nil
 }
 
-func (t *Tree) Delete(key int) {
+func (t *Tree) Delete(key int64) {
 	z := t.Search(key)
 	if z == nil {
 		return
@@ -341,7 +352,40 @@ func (t *Tree) Size() int {
 	return t.size
 }
 
-func newNode(key int, value string) *Node {
+func (t *Tree) Nearest(key int64) *Node {
+	return nearestNode(t.root, key)
+}
+
+func nearestNode(root *Node, key int64) *Node {
+	if root == nil {
+		return nil
+	}
+	var minDiff int64
+	var minDiffKey *Node
+
+	minDiff = INT_MAX
+	n := root
+	for n != nil {
+		if n.key == key {
+			minDiffKey = n
+			return minDiffKey
+		}
+		newDiff := abs(n.key - key)
+		if minDiff > newDiff {
+			minDiff = newDiff
+			minDiffKey = n
+		}
+		if key < n.key {
+			n = n.left
+		} else {
+			n = n.right
+		}
+	}
+
+	return minDiffKey
+}
+
+func newNode(key int64, value string) *Node {
 	return &Node{
 		key:   key,
 		value: value,
@@ -349,7 +393,7 @@ func newNode(key int, value string) *Node {
 }
 
 type Node struct {
-	key    int
+	key    int64
 	value  string
 	color  Color
 	parent *Node

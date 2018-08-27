@@ -5,6 +5,12 @@ import (
 	"testing"
 )
 
+func assertEqual(t *testing.T, a interface{}, b interface{}) {
+	if a != b {
+		t.Fatalf("not equal, a=%s,b=%s", a, b)
+	}
+}
+
 func TestTraverse(t *testing.T) {
 	tree := NewTree()
 
@@ -37,13 +43,26 @@ func TestDelete(t *testing.T) {
 	tree := NewTree()
 
 	for i := 1; i < 1000; i++ {
-		tree.Insert(i, strconv.Itoa(i))
+		tree.Insert(int64(i), strconv.Itoa(i))
 	}
 
 	for i := 1; i <= 1000; i++ {
-		tree.Delete(i)
+		tree.Delete(int64(i))
 	}
 	if tree.Size() != 0 {
 		t.Error("Error whilst deletion")
 	}
+}
+
+func Test_Nearest(t *testing.T) {
+	tree := NewTree()
+	tree.Insert(1, "")
+	tree.Insert(2, "")
+	tree.Insert(3, "")
+	tree.Insert(5, "")
+	tree.Insert(8, "")
+	tree.Insert(9, "")
+	tree.Insert(12, "")
+	y := tree.Nearest(int64(10))
+	assertEqual(t, y.key, int64(9))
 }
