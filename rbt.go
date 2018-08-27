@@ -401,6 +401,14 @@ type Node struct {
 	right  *Node
 }
 
+func (n *Node) GetKey() int64 {
+	return n.key
+}
+
+func (n *Node) GetValue() string {
+	return n.value
+}
+
 func (n *Node) father() *Node {
 	return n.parent
 }
