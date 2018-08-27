@@ -512,3 +512,27 @@ func (n *Node) preorder() {
 		n.right.preorder()
 	}
 }
+
+func FindSuccessor(n *Node) *Node {
+	if n.right != nil {
+		return n.right.minimum()
+	}
+	y := n.parent
+	for y != nil && n == y.right {
+		n = y
+		y = y.parent
+	}
+	return y
+}
+
+func FindPredecessor(n *Node) *Node {
+	if n.left != nil {
+		return n.left.maximum()
+	}
+	y := n.parent
+	for y != nil && n == y.left {
+		n = y
+		y = y.parent
+	}
+	return y
+}
