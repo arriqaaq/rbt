@@ -47,6 +47,10 @@ type Tree struct {
 	size int
 }
 
+func (t *Tree) Root() *Node {
+	return t.root
+}
+
 // Inorder traversal
 func (t *Tree) Traverse() {
 	fn := func(n *Node) {
