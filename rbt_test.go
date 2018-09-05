@@ -66,3 +66,16 @@ func Test_Nearest(t *testing.T) {
 	y := tree.Nearest(int64(10))
 	assertEqual(t, y.key, int64(9))
 }
+
+func Test_Circular_Queue(t *testing.T) {
+	tree := NewTree()
+	tree.Insert(1, "")
+	tree.Insert(2, "")
+	tree.Insert(3, "")
+	tree.Insert(5, "")
+	tree.Insert(8, "")
+	tree.Insert(9, "")
+	tree.Insert(12, "")
+	h := FindMinimum(tree)
+	assertEqual(t, h.key, int64(1))
+}

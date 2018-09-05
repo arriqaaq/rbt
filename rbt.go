@@ -540,3 +540,10 @@ func FindPredecessor(n *Node) *Node {
 	}
 	return y
 }
+
+func FindMinimum(t *Tree) *Node {
+	if t.root != nil {
+		return t.root.minimum()
+	}
+	return nil
+}
