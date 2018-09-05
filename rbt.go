@@ -360,6 +360,13 @@ func (t *Tree) Nearest(key int64) *Node {
 	return nearestNode(t.root, key)
 }
 
+func (t *Tree) Minimum() *Node {
+	if t.root != nil {
+		return t.root.minimum()
+	}
+	return nil
+}
+
 func nearestNode(root *Node, key int64) *Node {
 	if root == nil {
 		return nil
@@ -539,11 +546,4 @@ func FindPredecessor(n *Node) *Node {
 		y = y.parent
 	}
 	return y
-}
-
-func FindMinimum(t *Tree) *Node {
-	if t.root != nil {
-		return t.root.minimum()
-	}
-	return nil
 }
