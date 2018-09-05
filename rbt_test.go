@@ -78,4 +78,5 @@ func Test_Circular_Queue(t *testing.T) {
 	tree.Insert(12, "")
 	h := FindMinimum(tree)
 	assertEqual(t, h.key, int64(1))
+	assertEqual(t, h.successor().key, int64(2))
 }
